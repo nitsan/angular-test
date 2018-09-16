@@ -1,30 +1,11 @@
 language: node_js
+sudo: false
 node_js:
-- "8"
-sudo: true
-dist: trusty
+- '8'
+
+cache:
+  yarn: true
 
 branches:
   only:
   - master
-
-before_script:
-- export CHROME_BIN=/usr/bin/google-chrome
-- export DISPLAY=:99.0
-- sh -e /etc/init.d/xvfb start
-- sudo apt-get update
-- sudo apt-get install -y libappindicator1 fonts-liberation
-- wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-- sudo dpkg -i google-chrome*.deb
-
-script:
-- ng test --watch false -cc
-- npm run e2e
-- ng build
-
-deploy:
-  provider: pages
-  skip_cleanup: true
-  local_dir: dist
-  on:
-    branch: master
