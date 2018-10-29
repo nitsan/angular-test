@@ -27,7 +27,12 @@ jobs:
         # fallback to using the latest cache if no exact match is found
         - v1-dependencies-
 
-    - run: yarn install
+    - run:
+        name: Lint Client
+        command: yarn lint
+    - run:
+        name: Test Client
+        command: yarn test
 
     - save_cache:
         paths:
