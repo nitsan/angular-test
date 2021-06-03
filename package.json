@@ -1,7 +1,8 @@
 {
   "name": "angular-test",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
+    "echo": "echo bla bla",
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
     "server": "node server/server.js",

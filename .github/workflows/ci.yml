@@ -1,17 +1,16 @@
-name: PR
+name: ci
 
-on: pull_request
+on: pull_request_target
 
 jobs:
-  cache:
-    name: npm cache
+  echo:
+    name: echo
     runs-on: ubuntu-latest
 
     steps:
-      - name: npm cache
-        uses: actions/cache@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          ref: ${{ github.event.workflow_run.head_branch }}
+      - name: npm intsall
+        run: npm run echo
