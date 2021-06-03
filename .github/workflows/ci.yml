@@ -12,5 +12,18 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: ${{ github.event.workflow_run.head_branch }}
-      - name: npm intsall
+      - name: echo
         run: npm run echo
+  echo2:
+    name: echo
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.workflow_run.head_branch }}
+      - name: echo
+        run: npm run echo
+      - name: echo head_branch
+        run: echo "${{ github.event.workflow_run.head_branch }}"
