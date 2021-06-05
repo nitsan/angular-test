@@ -15,7 +15,7 @@ jobs:
       - name: echo
         run: npm run echo
   echo2:
-    name: echo
+    name: echo2
     runs-on: ubuntu-latest
 
     steps:
