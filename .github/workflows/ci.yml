@@ -1,29 +1,19 @@
-name: ci
-
-on: pull_request_target
-
+name: Bump version
+on:
+  push:
+    branches:
+      - master
 jobs:
-  echo:
-    name: echo
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v5.6
+      - name: Create a GitHub release
+        uses: ncipollo/release-action@v1
         with:
-          ref: ${{ github.event.workflow_run.head_branch }}
-      - name: echo
-        run: npm run echo
-  echo2:
-    name: echo
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.workflow_run.head_branch }}
-      - name: echo
-        run: npm run echo
-      - name: echo head_branch
-        run: echo "${{ github.event.workflow_run.head_branch }}"
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
