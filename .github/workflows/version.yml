@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Write Version to File
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Get Version
         id: vars
         run: echo ::set-output name=version::$(cat info.json | jq -r '.version')
@@ -19,6 +19,7 @@ jobs:
           file: info.json
           field: version
           value: ${{ steps.vars.outputs.version }}
+
       - name: 'Setup GIT'
         run: |
           echo "Setting email to: ${GITHUB_EMAIL}"
