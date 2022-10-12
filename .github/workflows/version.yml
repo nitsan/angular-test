@@ -1,8 +1,5 @@
 name: Write Version to File
-on:
-  push:
-    branches:
-      - master
+on: pull_request
 
 jobs:
   write-version:
@@ -15,9 +12,9 @@ jobs:
         run: echo ::set-output name=version::$(cat info.json | jq -r '.version')
       - name: Update version
         run: |
-          echo $version
-        with:
-          version: ${{ steps.vars.outputs.version }}
+          echo $VERSION
+        env:
+          VERSION: ${{ steps.vars.outputs.version }}
       - name: 'Setup GIT'
         run: |
           echo "Setting email to: ${GITHUB_EMAIL}"
