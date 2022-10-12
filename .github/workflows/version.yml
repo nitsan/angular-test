@@ -13,12 +13,23 @@ jobs:
       - name: Get Version
         id: vars
         run: echo ::set-output name=version::$(cat info.json | jq -r '.version')
+      - name: Calc next version
+        id: next-version
+        shell: bash
+        run: |
+          split=(${VERSION//.// })
+          index=$((${#split[@]}-1))
+          PATCH_VERSION=${split[$index]}
+          echo PATCH_VERSION=$PATCH_VERSION + 1 >> $GITHUB_ENV
+          echo "::set-output name=PATCH_VERSION::$PATCH_VERSION"
+        env:
+          VERSION: ${{ steps.vars.outputs.version }}
       - name: Update Version
         uses: jossef/action-set-json-field@v2
         with:
           file: info.json
           field: version
-          value: ${{ steps.vars.outputs.version }}
+          value: ${{ steps.next-version.outputs.version }}
       - name: 'Setup GIT'
         run: |
           echo "Setting email to: ${GITHUB_EMAIL}"
@@ -32,4 +43,4 @@ jobs:
           git commit -m "docs(): bumping release $VERSION"
           git push "https://$GITHUB_ACTOR@github.com/$GITHUB_REPOSITORY"
         env:
-          VERSION: ${{ steps.vars.outputs.version }}
+          VERSION: ${{ steps.next-version.outputs.version }}
