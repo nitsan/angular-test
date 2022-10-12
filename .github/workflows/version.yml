@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Write Version to File
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - name: Get Version
         id: vars
         run: echo ::set-output name=version::$(cat info.json | jq -r '.version')
