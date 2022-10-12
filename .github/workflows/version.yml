@@ -9,12 +9,15 @@ jobs:
     runs-on: ubuntu-latest
     name: Write Version to File
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v3
+      - name: Get Version
+        id: vars
+        run: echo ::set-output name=version::$(cat info.json | jq -r '.version')
       - name: Update version
-        uses: brettdorrans/write-version-to-file@master
+        run: |
+          echo $version
         with:
-          filename: '.version'
-          placeholder: '${VERSION}'
+          version: ${{ steps.vars.outputs.version }}
       - name: 'Setup GIT'
         run: |
           echo "Setting email to: ${GITHUB_EMAIL}"
@@ -24,5 +27,5 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
       - name: 'Push version'
         run: |
-          git add .version
+          git add info.json
           git push "https://$GITHUB_ACTOR@github.com/$GITHUB_REPOSITORY"
