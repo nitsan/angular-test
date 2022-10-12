@@ -1,5 +1,8 @@
 name: Write Version to File
-on: pull_request
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   write-version:
