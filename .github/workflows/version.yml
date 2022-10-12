@@ -15,3 +15,12 @@ jobs:
         with:
           filename: '.version'
           placeholder: '${VERSION}'
+      - name: 'Setup GIT'
+        run: |
+          echo "Setting email to: ${GITHUB_EMAIL}"
+          echo "Setting user to: ${GITHUB_ACTOR}"
+          echo "Commit message: $GITHUB_COMMIT_MESSAGE"
+          git config user.email "$GITHUB_EMAIL"
+          git config user.name "$GITHUB_ACTOR"
+      - name: 'Push version'
+        run: git push "https://$GITHUB_ACTOR@github.com/$GITHUB_REPOSITORY"
