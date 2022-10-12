@@ -18,9 +18,7 @@ jobs:
         with:
           file: info.json
           field: version
-          value: $VERSION
-        env:
-          VERSION: ${{ steps.vars.outputs.version }}
+          value: ${{ steps.vars.outputs.version }}
       - name: 'Setup GIT'
         run: |
           echo "Setting email to: ${GITHUB_EMAIL}"
