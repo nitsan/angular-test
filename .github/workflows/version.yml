@@ -13,9 +13,12 @@ jobs:
       - name: Get Version
         id: vars
         run: echo ::set-output name=version::$(cat info.json | jq -r '.version')
-      - name: Update version
-        run: |
-          echo $VERSION
+      - name: Update Version
+        uses: jossef/action-set-json-field@v2
+        with:
+          file: info.json
+          field: version
+          value: $VERSION
         env:
           VERSION: ${{ steps.vars.outputs.version }}
       - name: 'Setup GIT'
@@ -27,5 +30,8 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
       - name: 'Push version'
         run: |
-          git add info.json
+          git add -A
+          git commit -m "docs(): bumping release $VERSION"
           git push "https://$GITHUB_ACTOR@github.com/$GITHUB_REPOSITORY"
+        env:
+          VERSION: ${{ steps.vars.outputs.version }}
