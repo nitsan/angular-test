@@ -22,8 +22,10 @@ jobs:
           index=$((${#split[@]}-1))
           echo "$index"
           echo "${#split[@]}"
+          echo "${#split[0]}"
+          echo "${#split[1]}"
           nexPatchVersion=$((${split[$index]} + 1))
-          echo nextVersion=${{format('{0}.{1}.{2}', '${split[0]}', '${split[1]}', '$nexPatchVersion')}} >> $GITHUB_ENV
+          echo nextVersion=${{format('{0}.{1}.{2}', '1', '${split[1]}', '$nexPatchVersion')}} >> $GITHUB_ENV
         env:
           VERSION: ${{ env.currentVersion }}
       - name: 'echo nextVersion'
@@ -49,10 +51,10 @@ jobs:
           echo "Commit message: $GITHUB_COMMIT_MESSAGE"
           git config user.email "$GITHUB_EMAIL"
           git config user.name "$GITHUB_ACTOR"
-      - name: 'Push version'
-        run: |
-          git add -A
-          git commit -m "docs(): bumping release $SHORT_COMMIT"
-          git push "https://$GITHUB_ACTOR@github.com/$GITHUB_REPOSITORY"
-        env:
-          SHORT_COMMIT: ${{ env.shortCommit }}
+#      - name: 'Push version'
+#        run: |
+#          git add -A
+#          git commit -m "docs(): bumping release $SHORT_COMMIT"
+#          git push "https://$GITHUB_ACTOR@github.com/$GITHUB_REPOSITORY"
+#        env:
+#          SHORT_COMMIT: ${{ env.shortCommit }}
