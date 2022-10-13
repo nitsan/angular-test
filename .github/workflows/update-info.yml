@@ -25,7 +25,7 @@ jobs:
         with:
           file: info.json
           field: version
-          value: ${{ env.version }}
+          value: ${{ env.currentVersion }}
       - name: 'Setup GIT'
         run: |
           echo "Setting email to: ${GITHUB_EMAIL}"
