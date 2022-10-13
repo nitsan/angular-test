@@ -20,13 +20,14 @@ jobs:
         run: |
           split=(${VERSION//.// })
           index=$((${#split[@]}-1))
-          echo patchVersion=$($split[$index]) >> $GITHUB_ENV
+          patchVersion=${split[$index]}
+          echo nextPatchVersion=$(patchVersion + 1) >> $GITHUB_ENV
         env:
           VERSION: ${{ env.currentVersion }}
       - name: 'echo patch'
         run: echo "$PATCH_VERSION"
         env:
-          PATCH_VERSION: ${{ env.patchVersion }}
+          PATCH_VERSION: ${{ env.nextPatchVersion }}
       - name: Update short commit
         uses: jossef/action-set-json-field@v2
         with:
