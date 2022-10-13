@@ -19,7 +19,7 @@ jobs:
         with:
           file: info.json
           field: shortCommit
-          value: ${{ steps.next-version.outputs.shortCommit }}
+          value: ${{ steps.vars.outputs.shortCommit }}
       - name: 'Setup GIT'
         run: |
           echo "Setting email to: ${GITHUB_EMAIL}"
@@ -33,4 +33,4 @@ jobs:
           git commit -m "docs(): bumping release $SHORT_COMMIT"
           git push "https://$GITHUB_ACTOR@github.com/$GITHUB_REPOSITORY"
         env:
-          SHORT_COMMIT: ${{ steps.next-version.outputs.shortCommit }}
+          SHORT_COMMIT: ${{ steps.vars.outputs.shortCommit }}
