@@ -1,35 +1,25 @@
-name: Write Version to File
+name: Write Info to File
 on:
   push:
     branches:
       - master
 
 jobs:
-  write-version:
+  write-info:
     runs-on: ubuntu-latest
-    name: Write Version to File
+    name: Write Info
     steps:
       - uses: actions/checkout@v3
-      - name: Get Version
+      - name: Get Info
         id: vars
-        run: echo ::set-output name=version::$(cat info.json | jq -r '.version')
-      - name: Calc next version
-        id: next-version
-        shell: bash
         run: |
-          split=(${VERSION//.// })
-          index=$((${#split[@]}-1))
-          PATCH_VERSION=${split[$index]}
-          echo PATCH_VERSION=$PATCH_VERSION + 1 >> $GITHUB_ENV
-          echo "::set-output name=PATCH_VERSION::$PATCH_VERSION"
-        env:
-          VERSION: ${{ steps.vars.outputs.version }}
-      - name: Update Version
+          echo ::set-output name=shortCommit::$(git rev-parse --short HEAD)
+      - name: Update short commit
         uses: jossef/action-set-json-field@v2
         with:
           file: info.json
-          field: version
-          value: ${{ steps.next-version.outputs.version }}
+          field: shortCommit
+          value: ${{ steps.next-version.outputs.shortCommit }}
       - name: 'Setup GIT'
         run: |
           echo "Setting email to: ${GITHUB_EMAIL}"
@@ -40,7 +30,7 @@ jobs:
       - name: 'Push version'
         run: |
           git add -A
-          git commit -m "docs(): bumping release $VERSION"
+          git commit -m "docs(): bumping release $SHORT_COMMIT"
           git push "https://$GITHUB_ACTOR@github.com/$GITHUB_REPOSITORY"
         env:
-          VERSION: ${{ steps.next-version.outputs.version }}
+          SHORT_COMMIT: ${{ steps.next-version.outputs.shortCommit }}
