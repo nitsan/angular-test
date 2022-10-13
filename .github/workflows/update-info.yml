@@ -7,39 +7,30 @@ on:
 jobs:
   write-info:
     runs-on: ubuntu-latest
-    name: Write Info
+    name: 'Write Info'
     steps:
       - uses: actions/checkout@v3
-      - name: Get Info
+      - name: 'Get Info'
         run: |
           echo "shortCommit=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
           echo "currentVersion=$(cat info.json | jq -r '.version')" >> $GITHUB_ENV
-      - name: 'Calc Patch version'
+      - name: 'Calc Next Version'
         id: next-version
         shell: bash
         run: |
           split=(${VERSION//.// })
           index=$((${#split[@]}-1))
-          echo "index: $index"
-          echo "split[@]: ${#split[@]}"
-          echo "split[0]: ${split[0]/\//}"
-          echo "split[1]: ${split[1]/\//}"
-          echo "split[2]: ${split[2]}"
           nexPatchVersion=$((${split[$index]} + 1))
           echo nextVersion=${{format('{0}.{1}.{2}', '${split[0]/\//}', '${split[1]/\//}', '$nexPatchVersion')}} >> $GITHUB_ENV
         env:
           VERSION: ${{ env.currentVersion }}
-      - name: 'echo nextVersion'
-        run: echo "$NEXT_VERSION"
-        env:
-          NEXT_VERSION: ${{ env.nextVersion }}
-      - name: Update short commit
+      - name: 'Update Short Commit'
         uses: jossef/action-set-json-field@v2
         with:
           file: info.json
           field: shortCommit
           value: ${{ env.shortCommit }}
-      - name: Update new version
+      - name: 'Update New Version'
         uses: jossef/action-set-json-field@v2
         with:
           file: info.json
@@ -52,10 +43,10 @@ jobs:
           echo "Commit message: $GITHUB_COMMIT_MESSAGE"
           git config user.email "$GITHUB_EMAIL"
           git config user.name "$GITHUB_ACTOR"
-#      - name: 'Push version'
-#        run: |
-#          git add -A
-#          git commit -m "docs(): bumping release $SHORT_COMMIT"
-#          git push "https://$GITHUB_ACTOR@github.com/$GITHUB_REPOSITORY"
-#        env:
-#          SHORT_COMMIT: ${{ env.shortCommit }}
+      - name: 'Push Info File'
+        run: |
+          git add -A
+          git commit -m "docs(): bumping release v$VERSION"
+          git push "https://$GITHUB_ACTOR@github.com/$GITHUB_REPOSITORY"
+        env:
+          VERSION: ${{ env.nextVersion }}
