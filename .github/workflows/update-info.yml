@@ -11,15 +11,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Get Info
-        id: vars
         run: |
-          echo ::set-output name=shortCommit::$(git rev-parse --short HEAD)
+          echo "shortCommit=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
       - name: Update short commit
         uses: jossef/action-set-json-field@v2
         with:
           file: info.json
           field: shortCommit
-          value: ${{ steps.vars.outputs.shortCommit }}
+          value: ${{ env.shortCommit }}
       - name: 'Setup GIT'
         run: |
           echo "Setting email to: ${GITHUB_EMAIL}"
@@ -33,4 +32,4 @@ jobs:
           git commit -m "docs(): bumping release $SHORT_COMMIT"
           git push "https://$GITHUB_ACTOR@github.com/$GITHUB_REPOSITORY"
         env:
-          SHORT_COMMIT: ${{ steps.vars.outputs.shortCommit }}
+          SHORT_COMMIT: ${{ env.shortCommit }}
