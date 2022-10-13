@@ -13,12 +13,19 @@ jobs:
       - name: Get Info
         run: |
           echo "shortCommit=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+          echo "currentVersion=$(cat info.json | jq -r '.version')" >> $GITHUB_ENV
       - name: Update short commit
         uses: jossef/action-set-json-field@v2
         with:
           file: info.json
           field: shortCommit
           value: ${{ env.shortCommit }}
+      - name: Update new version
+        uses: jossef/action-set-json-field@v2
+        with:
+          file: info.json
+          field: version
+          value: ${{ env.version }}
       - name: 'Setup GIT'
         run: |
           echo "Setting email to: ${GITHUB_EMAIL}"
