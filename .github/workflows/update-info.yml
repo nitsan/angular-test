@@ -14,17 +14,17 @@ jobs:
         run: |
           echo "shortCommit=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
           echo "currentVersion=$(cat info.json | jq -r '.version')" >> $GITHUB_ENV
-      - name: 'Get Patch version'
+      - name: 'Calc Patch version'
         id: next-version
         shell: bash
         run: |
           split=(${VERSION//.// })
           index=$((${#split[@]}-1))
-          echo patchVersion=${split[$index]} >> $GITHUB_ENV
+          echo patchVersion=$((${split[$index]} + 1)) >> $GITHUB_ENV
         env:
           VERSION: ${{ env.currentVersion }}
       - name: 'echo patch'
-        run: echo "$(($PATCH_VERSION + 1))"
+        run: echo "$PATCH_VERSION"
         env:
           PATCH_VERSION: ${{ env.patchVersion }}
       - name: Update short commit
