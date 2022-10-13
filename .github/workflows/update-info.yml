@@ -20,7 +20,7 @@ jobs:
         run: |
           split=(${VERSION//.// })
           index=$((${#split[@]}-1))
-          echo patchVersion=$(split[$index]) >> $GITHUB_ENV
+          echo patchVersion=$($split[$index]) >> $GITHUB_ENV
         env:
           VERSION: ${{ env.currentVersion }}
       - name: 'echo patch'
