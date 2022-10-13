@@ -18,7 +18,7 @@ jobs:
         id: next-version
         shell: bash
         run: |
-          split=(${VERSION//.// })
+          split=(${VERSION/./ })
           echo "$split"
           index=$((${#split[@]}-1))
           nexPatchVersion=$((${split[$index]} + 1))
