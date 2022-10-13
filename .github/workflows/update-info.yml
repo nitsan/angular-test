@@ -20,8 +20,10 @@ jobs:
         run: |
           split=(${VERSION//.// })
           index=$((${#split[@]}-1))
+          echo "$index"
+          echo "${#split[@]}"
           nexPatchVersion=$((${split[$index]} + 1))
-          echo nextVersion=${{format('{0}.{1}.{2}', '${split[0]#/}', '${split[1]#/}', '$nexPatchVersion')}} >> $GITHUB_ENV
+          echo nextVersion=${{format('{0}.{1}.{2}', '${split[0]}', '${split[1]}', '$nexPatchVersion')}} >> $GITHUB_ENV
         env:
           VERSION: ${{ env.currentVersion }}
       - name: 'echo nextVersion'
