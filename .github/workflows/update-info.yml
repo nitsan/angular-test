@@ -24,7 +24,7 @@ jobs:
         env:
           VERSION: ${{ env.currentVersion }}
       - name: 'echo patch'
-        run: echo "Number($PATCH_VERSION + 1)"
+        run: echo "$(($PATCH_VERSION + 1))"
         env:
           PATCH_VERSION: ${{ env.patchVersion }}
       - name: Update short commit
