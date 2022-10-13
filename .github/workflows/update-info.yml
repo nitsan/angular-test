@@ -14,6 +14,17 @@ jobs:
         run: |
           echo "shortCommit=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
           echo "currentVersion=$(cat info.json | jq -r '.version')" >> $GITHUB_ENV
+      - name: Calc next version
+        id: next-version
+        shell: bash
+        run: |
+          split=(${VERSION//.// })
+          index=$((${#split[@]}-1))
+          PATCH_VERSION=${split[$index]}
+          echo PATCH_VERSION=Number($PATCH_VERSION) + 1 >> $GITHUB_ENV
+          echo "$PATCH_VERSION"
+        env:
+          VERSION: ${{ env.currentVersion }}
       - name: Update short commit
         uses: jossef/action-set-json-field@v2
         with:
