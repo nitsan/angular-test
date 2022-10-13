@@ -21,7 +21,7 @@ jobs:
           split=(${VERSION//.// })
           index=$((${#split[@]}-1))
           nexPatchVersion=$((${split[$index]} + 1))
-          echo nextVersion=$((join(['1','2','3'], '.'))) >> $GITHUB_ENV
+          echo nextVersion=$(format('{0}.{1}.{2}', '1', '2', '3')) >> $GITHUB_ENV
         env:
           VERSION: ${{ env.currentVersion }}
       - name: 'echo nextVersion'
