@@ -10,6 +10,8 @@ jobs:
     name: 'Write Info'
     steps:
       - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.VERSION_BUMP}}
       - name: 'Get Info'
         run: |
           echo "shortCommit=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
