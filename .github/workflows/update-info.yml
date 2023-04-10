@@ -54,4 +54,3 @@ jobs:
         id: "tag_create"
         with:
           tag: ${{ env.nextVersion }}
-          message: "Latest release"
