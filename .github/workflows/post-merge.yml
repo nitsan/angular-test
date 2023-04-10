@@ -57,6 +57,9 @@ jobs:
     steps:
       - name: 'Checkout Source Code'
         uses: actions/checkout@v3
+      - name: 'Get Version'
+        run: echo "currentVersion=$(cat info.json | jq -r '.version')" >> $GITHUB_ENV
+      - name: 'Create Tag'
       - uses: rickstaa/action-create-tag@v1.6.1
         with:
-          tag: ${{ needs.write-info.env.currentVersion }}
+          tag: ${{ env.currentVersion }}
