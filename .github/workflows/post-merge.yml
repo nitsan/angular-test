@@ -50,6 +50,7 @@ jobs:
           git config user.email "$GITHUB_EMAIL"
           git config user.name "$GITHUB_ACTOR"
       - name: 'Push Info File'
+        if: contains(env.GITHUB_COMMIT_MESSAGE, 'bumping release v') == false
         run: |
           git add -A
           git commit -m "docs(): bumping release v$VERSION"
