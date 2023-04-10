@@ -36,6 +36,10 @@ jobs:
           file: info.json
           field: version
           value: ${{ env.nextVersion }}
+      - name: 'Get Data from Github'
+        run: |
+          echo GITHUB_EMAIL=$(git --no-pager show -s --format=\'%ae\') >> $GITHUB_ENV
+          echo GITHUB_COMMIT_MESSAGE=$(git log -1 --pretty=%B) >> $GITHUB_ENV
       - name: 'Setup GIT'
         run: |
           echo "Setting email to: ${GITHUB_EMAIL}"
@@ -50,16 +54,3 @@ jobs:
           git push "https://$GITHUB_ACTOR@github.com/$GITHUB_REPOSITORY"
         env:
           VERSION: ${{ env.nextVersion }}
-  create-tag:
-    name: 'Create Tag'
-    needs: write-info
-    runs-on: ubuntu-latest
-    steps:
-      - name: 'Checkout Source Code'
-        uses: actions/checkout@v3
-      - name: 'Get Version'
-        run: echo "currentVersion=$(cat info.json | jq -r '.version')" >> $GITHUB_ENV
-      - name: 'Create Tag'
-        uses: rickstaa/action-create-tag@v1.6.1
-        with:
-          tag: ${{ env.currentVersion }}
