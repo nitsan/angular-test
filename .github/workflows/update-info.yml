@@ -50,3 +50,8 @@ jobs:
           git push "https://$GITHUB_ACTOR@github.com/$GITHUB_REPOSITORY"
         env:
           VERSION: ${{ env.nextVersion }}
+      - uses: rickstaa/action-create-tag@v1.6.1
+        id: "tag_create"
+        with:
+          tag: ${{ env.nextVersion }}
+          message: "Latest release"
