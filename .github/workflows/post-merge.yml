@@ -25,13 +25,13 @@ jobs:
         env:
           VERSION: ${{ env.currentVersion }}
       - name: 'Update Short Commit'
-        uses: jossef/action-set-json-field@v2
+        uses: jossef/action-set-json-field@v2.1
         with:
           file: info.json
           field: shortCommit
           value: ${{ env.shortCommit }}
       - name: 'Update New Version'
-        uses: jossef/action-set-json-field@v2
+        uses: jossef/action-set-json-field@v2.1
         with:
           file: info.json
           field: version
