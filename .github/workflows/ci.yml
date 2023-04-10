@@ -1,21 +1,19 @@
-name: Bump version
-on:
-  push:
-    branches:
-      - master
+name: ci
+
+on: pull_request
+
 jobs:
-  build:
+  unit-test:
+    name: unit-tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Bump version and push tag
-        id: tag_version
-        uses: mathieudutour/github-tag-action@v5.6
+      - name: 'Checkout source code'
+        uses: actions/checkout@v3
+      - name: 'Setup node'
+        uses: actions/setup-node@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Create a GitHub release
-        uses: ncipollo/release-action@v1
-        with:
-          tag: ${{ steps.tag_version.outputs.new_tag }}
-          name: Release ${{ steps.tag_version.outputs.new_tag }}
-          body: ${{ steps.tag_version.outputs.changelog }}
+          cache: 'npm'
+      - name: 'npm install'
+        run: npm ci --prefer-offline --no-audit --no-fund
+      - name: 'Test Client'
+        run: npm run test
