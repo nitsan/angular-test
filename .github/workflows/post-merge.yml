@@ -8,6 +8,8 @@ jobs:
   write-info:
     runs-on: ubuntu-latest
     name: 'Write Info'
+    outputs:
+      version: ${{ steps.push-file.outputs.version }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -50,10 +52,22 @@ jobs:
           git config user.email "$GITHUB_EMAIL"
           git config user.name "$GITHUB_ACTOR"
       - name: 'Push Info File'
+        id: push-file
         if: contains(env.GITHUB_COMMIT_MESSAGE, 'bumping release v') == false
         run: |
           git add -A
           git commit -m "docs(): bumping release v$VERSION"
           git push "https://$GITHUB_ACTOR@github.com/$GITHUB_REPOSITORY"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
         env:
           VERSION: ${{ env.nextVersion }}
+  create-tag:
+    runs-on: ubuntu-latest
+    needs: write-info
+    if: needs.write-info.outputs.version != null
+    steps:
+      - uses: actions/checkout@v3
+      - uses: rickstaa/action-create-tag@v1.6.1
+        with:
+          tag: ${{ needs.write-info.outputs.version }}
+
