@@ -66,7 +66,8 @@ jobs:
     needs: write-info
     if: needs.write-info.outputs.version != null
     steps:
-      uses: rickstaa/action-create-tag@v1.6.1
+    - uses: actions/checkout@v3
+    - uses: rickstaa/action-create-tag@v1.6.1
       with:
-        tag: ${{ env.nextVersion }}
+        tag: ${{ needs.write-info.outputs.version }}
 
