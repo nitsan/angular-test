@@ -5,7 +5,7 @@
     "docker:build": "docker build . -t angular-test",
     "docker:run": "docker run --rm -p 8080:80 --name angular-test angular-test",
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json",
+    "start": "ng serve",
     "server": "node server/server.js",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
