@@ -9,10 +9,6 @@ jobs:
     steps:
       - name: 'Checkout source code'
         uses: actions/checkout@v4
-      - name: 'Setup node'
-        uses: actions/setup-node@v4
-        with:
-          cache: 'npm'
       - name: 'npm install'
         run: npm ci --prefer-offline --no-audit --no-fund
       - name: 'Test Client'
