@@ -10,7 +10,7 @@ const app = express();
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'dist')));
 
-app.use('/movies', (req, res) => {
+app.use('/api/movies', (req, res) => {
   res.json(movies);
 });
 app.listen(3000, function () {
