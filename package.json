@@ -2,7 +2,8 @@
   "name": "angular-test",
   "version": "0.1.0",
   "scripts": {
-    "echo": "echo messi",
+    "docker:build": "docker build . -t angular-test",
+    "docker:run": "docker run --rm -p 8080:80 --name angular-test angular-test",
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
     "server": "node server/server.js",
