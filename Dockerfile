@@ -11,7 +11,11 @@ COPY [".npmrc", "angular.json", "info.json", "tsconfig.app.json", "tsconfig.json
 RUN npm run build
 
 FROM nginx:stable-alpine
+
+RUN rm -rf /etc/nginx/conf.d/*
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY angular-test.conf /etc/nginx/conf.d/angular-test.conf
 COPY --from=builder /app/dist/angular-test /usr/share/nginx/html
 
-EXPOSE 80
+EXPOSE 80/tcp
 CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
