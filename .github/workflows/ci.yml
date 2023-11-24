@@ -23,3 +23,13 @@ jobs:
         run: npm ci --prefer-offline --no-audit --no-fund
       - name: 'Lint'
         run: npm run lint
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout source code'
+        uses: actions/checkout@v4
+      - name: 'npm install'
+        run: npm ci --prefer-offline --no-audit --no-fund
+      - name: 'Build'
+        run: npm run build

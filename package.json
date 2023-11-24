@@ -6,7 +6,7 @@
     "docker:run": "docker run --rm -p 8080:80 --name angular-test angular-test",
     "serve": "ng serve",
     "server": "node server/server.js",
-    "build": "ng build",
+    "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
