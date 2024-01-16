@@ -1,13 +1,13 @@
-'use strict';
-/*jshint esversion: 6 */
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
+const favicon = require('express-favicon');
 const movies = require('./movies.json');
 
 
 const app = express();
 app.use(logger('dev'));
+app.use(favicon(__dirname + '/../src/favicon.ico'));
 app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use('/api/movies', (req, res) => {
