@@ -5,7 +5,7 @@
     "docker:build": "docker build . -t angular-test",
     "docker:run": "docker run --rm -p 8080:80 --name angular-test angular-test",
     "serve": "ng serve",
-    "server": "node server/server.js",
+    "server": "nodemon server/server.js",
     "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "lint": "ng lint",
@@ -22,6 +22,7 @@
     "@angular/platform-browser": "^16.2.12",
     "@angular/platform-browser-dynamic": "^16.2.12",
     "@angular/router": "^16.2.12",
+    "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
     "express": "^4.18.2",
     "morgan": "^1.10.0",
@@ -49,6 +50,7 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "nodemon": "^3.0.3",
     "typescript": "~4.9.5"
   },
   "engines": {

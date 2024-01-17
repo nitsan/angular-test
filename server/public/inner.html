@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <style>
+    body {
+      padding: 20px;
+    }
+    iframe {
+      border: 1px solid #ccc;
+    }
+  </style>
+  <script src="cookies.js" type="application/javascript"></script>
+</head>
+<body>
+<h1>Test Cookie - Host</h1>
+<input class="" id="cookieValue">
+<button class="btn btn-primary" id="set-btn" onclick="onSetCookie('test-client-inner', 'inner.test')">Set Cookie</button>
+<button class="btn btn-primary" id="read-btn" onclick="readCookie()">Read Cookie</button>
+<button class="btn btn-primary" id="req-btn" onclick="callServer('test-server-inner', 'inner.test')">Request Server</button>
+<div>Value:
+  <pre id="cookie"></pre>
+</div>
+</body>
+</html>

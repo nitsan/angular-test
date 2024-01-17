@@ -4,19 +4,35 @@ const express = require('express');
 const path = require('path');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
-const movies = require('./movies.json');
+const bodyParser = require('body-parser')
 
 
 const app = express();
-app.use(cookieParser())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(logger('dev'));
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api/movies', (req, res) => {
-  res.json(movies);
+app.post('/api/test', (req, res) => {
+  console.log('req.body', req.body);
+  const {cookieKey, domain} = req.body;
+  console.log('Cookies before:', res.cookies);
+  res.cookie(cookieKey, 'bbb', {domain: domain, path: '/', sameSite: 'none'})
+  console.log('Cookies after:', res.cookies);
+  res.json({[cookieKey]: 'bbb'});
 });
-app.listen(3000, function () {
-  console.log(`app listening on port ${3000}!`);
+
+app.get('/iframe', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'inner.html'));
+});
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'host.html'));
+});
+
+const port = 80;
+app.listen(port, function () {
+  console.log(`app listening on port ${port}!`);
 });
 
 module.exports = app;
