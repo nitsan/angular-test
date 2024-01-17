@@ -3,10 +3,12 @@
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
+const cookieParser = require('cookie-parser');
 const movies = require('./movies.json');
 
 
 const app = express();
+app.use(cookieParser())
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'dist')));
 
