@@ -8,7 +8,6 @@ const movies = require('./movies.json');
 const app = express();
 app.use(logger('dev'));
 app.use(favicon(__dirname + '/../src/favicon.ico'));
-console.log(__dirname);
 app.use(express.static(path.join(__dirname, '..', 'dist', 'angular-test', 'browser')));
 
 app.use('/api/movies', (req, res) => {
