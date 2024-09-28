@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "^18.2.6",
     "@angular/router": "^18.2.6",
     "express": "^4.21.0",
+    "express-favicon": "^2.0.4",
     "morgan": "^1.10.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
