@@ -9,6 +9,10 @@ jobs:
     steps:
       - name: 'Checkout source code'
         uses: actions/checkout@v4
+      - name: '📦 Cache dependencies'
+        uses: actions/setup-node@v4
+        with:
+          cache: 'npm'
       - name: 'npm install'
         run: npm ci --prefer-offline --no-audit --no-fund
       - name: 'Test Client'
@@ -19,6 +23,10 @@ jobs:
     steps:
       - name: 'Checkout source code'
         uses: actions/checkout@v4
+      - name: '📦 Cache dependencies'
+        uses: actions/setup-node@v4
+        with:
+          cache: 'npm'
       - name: 'npm install'
         run: npm ci --prefer-offline --no-audit --no-fund
       - name: 'Lint'
@@ -29,6 +37,10 @@ jobs:
     steps:
       - name: 'Checkout source code'
         uses: actions/checkout@v4
+      - name: '📦 Cache dependencies'
+        uses: actions/setup-node@v4
+        with:
+          cache: 'npm'
       - name: 'npm install'
         run: npm ci --prefer-offline --no-audit --no-fund
       - name: 'Build'
