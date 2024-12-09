@@ -8,6 +8,8 @@ jobs:
     steps:
       - name: '🚚 Checkout source code'
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: '📦 Cache dependencies'
         uses: actions/setup-node@v4
         with:
