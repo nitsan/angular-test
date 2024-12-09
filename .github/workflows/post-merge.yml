@@ -62,12 +62,13 @@ jobs:
           VERSION: ${{ env.nextVersion }}
   echo-commit-message:
     runs-on: ubuntu-latest
-    if: contains(github.event.head_commit.message, 'bumping release v')
     steps:
       - uses: actions/checkout@v4
       - name: 'Echo Version from info.json'
-        run: echo "version=$(cat info.json | jq -r '.version')" >> $GITHUB_ENV
+        if: contains(github.event.head_commit.message, 'bumping release v')
+        run: echo "version=$(jq -r '.version' info.json)" >> $GITHUB_ENV
       - name: 'Echo commit message from github.event.head_commit.message'
+        if: contains(github.event.head_commit.message, 'bumping release v')
         run: |
           echo "commit_message: ${{ github.event.head_commit.message }}"
           echo "version: ${version}"
