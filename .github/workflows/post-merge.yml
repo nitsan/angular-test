@@ -28,7 +28,6 @@ jobs:
           echo nextVersion=${{format('{0}.{1}.{2}', '${split[0]/\//}', '${split[1]/\//}', '$nexPatchVersion')}} >> $GITHUB_ENV
         env:
           VERSION: ${{ env.currentVersion }}
-          GITHUB_TOKEN: ${{ secrets.VERSION_BUMP}}
       - name: 'Update Short Commit'
         uses: jossef/action-set-json-field@v2.1
         with:
@@ -62,6 +61,7 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
         env:
           VERSION: ${{ env.nextVersion }}
+          GITHUB_TOKEN: ${{ secrets.VERSION_BUMP}}
   echo-commit-message:
     runs-on: ubuntu-latest
     steps:
