@@ -12,6 +12,8 @@ jobs:
       version: ${{ steps.push-file.outputs.version }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: 'Get Info'
         run: |
           echo "shortCommit=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
