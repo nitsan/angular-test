@@ -60,7 +60,7 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
         env:
           VERSION: ${{ env.nextVersion }}
-  create-tag:
+  echo-commit-message:
     runs-on: ubuntu-latest
     if: contains(github.event.head_commit.message, 'bumping release v') == false
     steps:
@@ -68,7 +68,9 @@ jobs:
       - name: 'Echo commit message from github.event.head_commit.message'
         run: |
           echo "commit_message=${{ github.event.head_commit.message }}" >> $GITHUB_ENV
-          echo "commit_message: ${GITHUB_ACTOR}"
+          echo "commit_message: ${commit_message}"
       - name: 'Echo Version from info.json'
-        run: echo "version=$(cat info.json | jq -r '.version')" >> $GITHUB_ENV
+        run: |
+          echo "version=$(cat info.json | jq -r '.version')" >> $GITHUB_ENV
+          echo "version: ${version}"
 
