@@ -73,6 +73,6 @@ jobs:
         run: |
           echo "commit_message: ${{ github.event.head_commit.message }}"
           echo "version: ${VERSION}"
-        with:
+        env:
           VERSION: ${{ env.version }}
 
