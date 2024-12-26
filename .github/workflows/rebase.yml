@@ -22,9 +22,6 @@ jobs:
             -d '{"content": "+1"}'
 
       - name: 'Slash Command Dispatch'
-        uses: peter-evans/slash-command-dispatch@v3
+        uses: peter-evans/rebase@v3
         with:
           token: ${{ secrets.VERSION_BUMP }}
-          commands: rebase
-          permission: write
-          issue-type: pull-request
