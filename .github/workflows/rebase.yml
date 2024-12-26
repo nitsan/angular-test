@@ -20,20 +20,11 @@ jobs:
             -H "Accept: application/vnd.github.squirrel-girl-preview+json" \
             https://api.github.com/repos/${{ github.repository }}/issues/comments/$COMMENT_ID/reactions \
             -d '{"content": "+1"}'
-      - name: '🚚 Checkout source code'
-        uses: actions/checkout@v4
+
+      - name: 'Slash Command Dispatch'
+        uses: peter-evans/slash-command-dispatch@v3
         with:
-          ref: ${{ github.event.issue.pull_request.head.ref }}
-          fetch-depth: 0
-
-      - name: 'Fetch all branches'
-        run: git fetch origin master --depth=1
-
-      - name: 'Rebase branch'
-        run: |
-          git status
-          git rebase origin/master
-          git status
-          git push --force-with-lease
-        env:
-          GITHUB_TOKEN: ${{ secrets.VERSION_BUMP }}
+          token: ${{ secrets.VERSION_BUMP }}
+          commands: rebase
+          permission: write
+          issue-type: pull-request
