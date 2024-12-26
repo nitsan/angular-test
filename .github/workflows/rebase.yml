@@ -23,8 +23,6 @@ jobs:
 
       - name: 'Checkout'
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.issue.pull_request.head.sha }}
 
       - name: 'Fetch'
         run: git fetch origin
@@ -32,6 +30,7 @@ jobs:
       - name: 'Rebase'
         run: |
           git rebase origin/master
+          git checkout ${{ github.event.issue.pull_request.head.sha }}
           git push --force-with-lease
         env:
           GH_TOKEN: ${{ secrets.VERSION_BUMP }}
