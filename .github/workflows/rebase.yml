@@ -11,6 +11,9 @@ jobs:
 
     steps:
       - name: 'Rebase PR'
-        uses: peter-evans/rebase@v3
+        uses: peter-evans/slash-command-dispatch@v3
         with:
           token: ${{ secrets.VERSION_BUMP }}
+          commands: rebase
+          permission: write
+          issue-type: pull-request
