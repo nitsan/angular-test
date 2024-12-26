@@ -10,16 +10,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 'Rebase PR'
-        uses: peter-evans/rebase@v3
-        id: rebase
-        with:
-          head: ${{ github.event.client_payload.pull_request.head.label }}
-      - name: Add reaction
-        if: steps.rebase.outputs.rebased-count == 1
-        uses: peter-evans/create-or-update-comment@v1
-        with:
-          token: ${{ secrets.PAT }}
-          repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
-          comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
-          reaction-type: hooray
+      - name: Add Emoji Reaction
+        env:
+          GH_TOKEN: ${{ secrets.VERSION_BUMP }}
+        run: |
+          COMMENT_ID=${{ github.event.comment.id }}
+          curl -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github.squirrel-girl-preview+json" \
+            https://api.github.com/repos/${{ github.repository }}/issues/comments/$COMMENT_ID/reactions \
+            -d '{"content": "+1"}'
+
+      - name: 'Fetch'
+        uses: actions/checkout@v4
+
+      - name: 'Rebase'
+        run: |
+          git rebase origin/main
+          git git push --force-with-lease
+        env:
+          GH_TOKEN: ${{ secrets.VERSION_BUMP }}
