@@ -6,7 +6,7 @@ on:
 
 jobs:
   rebase:
-    if: github.event.issue.pull_request != null && contains(github.event.comment.body, 'rebase')
+    if: github.event.issue.pull_request != null && contains(github.event.comment.body, 'rebase pr')
     runs-on: ubuntu-latest
 
     steps:
@@ -30,7 +30,9 @@ jobs:
 
       - name: 'Rebase branch'
         run: |
+          git status
           git rebase origin/master
+          git status
           git push --force-with-lease
         env:
           GITHUB_TOKEN: ${{ secrets.VERSION_BUMP }}
