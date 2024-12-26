@@ -30,7 +30,9 @@ jobs:
 
       - name: 'Rebase branch'
         run: |
+          git status
           git rebase origin/master
+          git status
           git push --force-with-lease
         env:
           GITHUB_TOKEN: ${{ secrets.VERSION_BUMP }}
