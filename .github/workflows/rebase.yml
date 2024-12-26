@@ -22,12 +22,11 @@ jobs:
             -d '{"content": "+1"}'
 
       - name: 'Fetch'
-        uses: actions/checkout@v4
+        run: git fetch origin
 
       - name: 'Rebase'
         run: |
           git rebase origin/master
-          git checkout ${{ github.event.issue.number }}
           git push --force-with-lease
         env:
           GH_TOKEN: ${{ secrets.VERSION_BUMP }}
