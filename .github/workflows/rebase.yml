@@ -27,6 +27,6 @@ jobs:
       - name: 'Rebase'
         run: |
           git rebase origin/master
-          git git push --force-with-lease
+          git push --force-with-lease
         env:
           GH_TOKEN: ${{ secrets.VERSION_BUMP }}
