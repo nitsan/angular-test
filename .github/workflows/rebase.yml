@@ -27,7 +27,7 @@ jobs:
       - name: 'Rebase'
         run: |
           git rebase origin/master
-          git checkout ${{ github.event.issue.pull_request.head.ref }}
+          git checkout ${{ github.event.issue.number }}
           git push --force-with-lease
         env:
           GH_TOKEN: ${{ secrets.VERSION_BUMP }}
