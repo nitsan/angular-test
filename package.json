@@ -24,7 +24,7 @@
     "@angular/router": "^18.2.6",
     "express": "^4.21.2",
     "express-favicon": "^2.0.4",
-    "morgan": "^1.10.0",
+    "morgan": "^1.10.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.7.0",
     "zone.js": "~0.14.10"
