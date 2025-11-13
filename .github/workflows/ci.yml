@@ -13,6 +13,7 @@ jobs:
       - name: '📦 Cache dependencies'
         uses: actions/setup-node@v6
         with:
+          node-version: 22
           cache: 'npm'
       - name: 'npm install'
         run: npm ci --prefer-offline --no-audit --no-fund
@@ -26,6 +27,7 @@ jobs:
       - name: '📦 Cache dependencies'
         uses: actions/setup-node@v6
         with:
+          node-version: 22
           cache: 'npm'
       - name: 'npm install'
         run: npm ci --prefer-offline --no-audit --no-fund
@@ -41,6 +43,7 @@ jobs:
       - name: '📦 Cache dependencies'
         uses: actions/setup-node@v6
         with:
+          node-version: 22
           cache: 'npm'
       - name: 'npm install'
         run: npm ci --prefer-offline --no-audit --no-fund
@@ -56,6 +59,7 @@ jobs:
       - name: '📦 Cache dependencies'
         uses: actions/setup-node@v6
         with:
+          node-version: 22
           cache: 'npm'
       - name: 'npm install'
         run: npm ci --prefer-offline --no-audit --no-fund
