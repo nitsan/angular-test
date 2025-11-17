@@ -15,10 +15,10 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
-      - name: 'npm install'
-        run: |
-          npm i --prefer-offline --no-audit --no-fund # fix npm bug
-          npm ci --prefer-offline --no-audit --no-fund
+      - name: 'npm install (fix npm bug)'
+        run: npm i --prefer-offline --no-audit --no-fund
+      - name: 'npm clean install'
+        run: npm ci --prefer-offline --no-audit --no-fund
   unit-test:
     name: unit-tests
     runs-on: ubuntu-latest
