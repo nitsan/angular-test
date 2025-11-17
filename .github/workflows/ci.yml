@@ -18,7 +18,7 @@ jobs:
       - name: 'npm install'
         run: |
           npm ci --prefer-offline --no-audit --no-fund
-          npm i # fix npm bug
+          npm i --prefer-offline --no-audit --no-fund # fix npm bug
   unit-test:
     name: unit-tests
     runs-on: ubuntu-latest
