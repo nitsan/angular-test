@@ -17,8 +17,8 @@ jobs:
           cache: 'npm'
       - name: 'npm install'
         run: |
-          npm ci --prefer-offline --no-audit --no-fund
           npm i --prefer-offline --no-audit --no-fund # fix npm bug
+          npm ci --prefer-offline --no-audit --no-fund
   unit-test:
     name: unit-tests
     runs-on: ubuntu-latest
